@@ -12,14 +12,6 @@ def not_prerelease(release: dict) -> bool:
 def match_asset(asset: dict) -> re.Match:
 	return re.match(asset_regex, asset['name'])
 
-# # Uses global variable: main_cfg
-# def get_installed(asset_name: str) -> list:
-# 	# A release name might contain commas, so only split at the first comma
-# 	try:
-# 		return main_cfg['installed'][asset_name].split(', ', 1)
-# 	except:
-# 		return ['', None]
-
 def check_for_update(repo: str, last_update: str, include_prerelease: bool) -> dict:
 	api_url = f'https://api.github.com/repos/{repo}/releases'
 	releases = requests.get(api_url).json()

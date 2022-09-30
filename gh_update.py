@@ -15,12 +15,13 @@ def match_asset(asset: dict) -> re.Match:
 def check_for_update(repo: str, last_update: str, include_prerelease: bool) -> dict:
 	api_url = f'https://api.github.com/repos/{repo}/releases'
 	releases = requests.get(api_url).json()
-	if include_prerelease:
-		release = releases[0]
-	else:
-		release = next(filter(not_prerelease, releases))
-	if last_update < release['published_at']:
-		return release
+	if releases:
+		if include_prerelease:
+			release = releases[0]
+		else:
+			release = next(filter(not_prerelease, releases), None)
+		if release and last_update < release['published_at']:
+			return release
 
 def download_asset(asset: dict) -> str:
 	req = requests.get(asset['browser_download_url'])
@@ -57,7 +58,7 @@ new_release = check_for_update(repo_name, last_update, include_prerelease)
 if not new_release:
 	sys.exit('No update found')
 
-asset = next(filter(match_asset, new_release['assets']))
+asset = next(filter(match_asset, new_release['assets']), None)
 if not asset:
 	sys.exit('No update found')
 

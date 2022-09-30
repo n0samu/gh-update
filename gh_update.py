@@ -42,7 +42,7 @@ config.read(config_file)
 try: 
 	main_cfg = config['general']
 	repo_name = main_cfg['repo']
-	include_prerelease = bool(main_cfg['download_prerelease'])
+	include_prerelease = main_cfg['download_prerelease'].lower() == 'true'
 except:
 	sys.exit('Wrong config file format')
 try:

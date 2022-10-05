@@ -19,7 +19,7 @@ for name, regex in assets.items():
 	config[name] = {
 		'regex': regex,
 		'extract_path': f'ruffle-{name}',
-		'backup_path': ''
+		'delete_files': name in ['selfhosted', 'chrome']
 	}
 
 with open('ruffle.ini', 'w') as configfile:

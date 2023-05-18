@@ -19,6 +19,8 @@ This section may also contain 4 optional items:
 - **installed_date**: Specifies the date that the currently installed release was published. This is managed by gh-update and normally does not need to be edited.
 
 ## Running gh-update
+Before running gh-update, you will need to install the Requests library by running `pip install requests`.
+
 Once you have created a suitable config file, simply run `python gh_update.py config.ini asset_name` to update your portable program!
 
 For example, to update the Ruffle desktop app on a 64-bit Windows machine, you would run `python gh_update.py ruffle.ini win64`.
